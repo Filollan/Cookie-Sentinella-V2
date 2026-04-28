@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Ayuda - CookieSentinella</title>
+  <link rel="stylesheet" href="../components/shared/styles.css" />
+  <link rel="stylesheet" href="./help.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+</head>
+<body>
+  <div id="layout-header"></div>
+
+  <div class="popup-container">
+    <h3 data-i18n="help">Ayuda</h3>
+
+    <div class="help-section">
+
+      <!-- FAQ estático expandible -->
+      <button class="help-card" id="faq-btn">
+        <div class="icon">❓</div>
+        <span data-i18n="faq">Preguntas frecuentes</span>
+        <div class="arrow" id="faq-arrow">›</div>
+      </button>
+
+      <!-- Panel FAQ -->
+      <div id="faq-panel" class="faq-panel" style="display:none;">
+        <div class="faq-item">
+          <button class="faq-question" data-index="0">
+            <span data-i18n="faqQ1">¿Qué hace CookieSentinella?</span>
+            <span class="faq-chevron">+</span>
+          </button>
+          <div class="faq-answer" data-index="0">
+            <p data-i18n="faqA1">Protege tus cookies de sesión de Moodle con encriptación avanzada y detecta intentos de manipulación. Aplica configuraciones de seguridad (Secure, HttpOnly, SameSite) y monitorea cambios sospechosos en tiempo real.</p>
+          </div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question" data-index="1">
+            <span data-i18n="faqQ2">¿Cómo funciona la protección?</span>
+            <span class="faq-chevron">+</span>
+          </button>
+          <div class="faq-answer" data-index="1">
+            <p data-i18n="faqA2">Una vez activada, la extensión encripta las cookies de sesión, aplica los flags de seguridad (Secure, HttpOnly, SameSite=Strict) y monitorea cualquier cambio no autorizado, bloqueándolo automáticamente.</p>
+          </div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question" data-index="2">
+            <span data-i18n="faqQ3">¿Qué hace "Limpiar Sesión"?</span>
+            <span class="faq-chevron">+</span>
+          </button>
+          <div class="faq-answer" data-index="2">
+            <p data-i18n="faqA3">Elimina todas las cookies de sesión de Moodle y desactiva la protección de forma segura. Esto cerrará tu sesión activa en la plataforma.</p>
+          </div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question" data-index="3">
+            <span data-i18n="faqQ4">¿Qué son los intentos de XSS?</span>
+            <span class="faq-chevron">+</span>
+          </button>
+          <div class="faq-answer" data-index="3">
+            <p data-i18n="faqA4">Son ataques de tipo Cross-Site Scripting: código malicioso que intenta robar tu cookie de sesión. CookieSentinella los detecta y bloquea automáticamente, registrando cada intento en la sección de Notificaciones.</p>
+          </div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question" data-index="4">
+            <span data-i18n="faqQ5">¿La extensión envía mis datos a algún servidor?</span>
+            <span class="faq-chevron">+</span>
+          </button>
+          <div class="faq-answer" data-index="4">
+            <p data-i18n="faqA5">No. Toda la protección funciona localmente en tu navegador. No se envía ninguna cookie ni dato personal a servidores externos.</p>
+          </div>
+        </div>
+      </div>
+
+      <button class="help-card" id="support-btn">
+        <div class="icon">🛠️</div>
+        <span data-i18n="support">Soporte</span>
+        <div class="arrow">›</div>
+      </button>
+
+      <button class="help-card" id="report-btn">
+        <div class="icon">💬</div>
+        <span data-i18n="reportProblem">Informar de un problema</span>
+        <div class="arrow" id="report-arrow">›</div>
+      </button>
+
+      <!-- Panel de Reporte -->
+      <div id="report-panel" class="faq-panel" style="display:none; padding: 16px;">
+        <form id="report-form" class="report-form">
+          <label for="report-name" data-i18n="reportNameLabel" class="form-label">Tu Nombre:</label>
+          <input type="text" id="report-name" required placeholder="Ej. Juan Pérez" class="form-input" />
+          
+          <label for="report-desc" data-i18n="reportDescLabel" class="form-label">Descripción del Problema:</label>
+          <textarea id="report-desc" required placeholder="Describe tu problema detalladamente..." class="form-textarea" rows="4"></textarea>
+          
+          <button type="submit" class="submit-btn form-submit" data-i18n="reportSubmitBtn">Enviar Reporte</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <div id="layout-footer"></div>
+
+  <script type="module" src="help.js"></script>
+</body>
+</html>

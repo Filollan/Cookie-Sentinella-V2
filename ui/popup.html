@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>CookieSentinella</title>
+  <link rel="stylesheet" href="./components/shared/styles.css" />
+ 
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet" />
+</head>
+<body >
+  
+  <div id="layout-header"></div>
+
+  <div class="popup-container">
+    <!-- UI principal -->
+    <div class="statusBox" id="status">
+      <img src="../icons/escudoo.png" alt="Escudo protegido" id="statusIcon" />
+      <span>Cargando estado...</span>
+    </div>
+    <div class="statusBox" id="sessionStatus">Verificando sesión...</div>
+
+    <button id="toggleBtn">Activar protección/Desactivar protección</button>
+    <button id="cleanupBtn">Limpiar Sesión</button>
+
+    <div id="error"></div>
+  </div>
+
+  <div id="layout-footer"></div>
+
+  <!-- scripts -->
+  <script type="module" src="popup.js"></script>
+</body>
+</html>

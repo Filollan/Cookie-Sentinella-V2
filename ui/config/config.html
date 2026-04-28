@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title data-i18n="configuration">Configuración - CookieSentinella</title>
+  <link rel="stylesheet" href="../components/shared/styles.css" />
+  <link rel="stylesheet" href="./config.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet" />
+</head>
+<body>
+  
+  <!-- Header dinámico -->
+  <div id="layout-header"></div>
+
+  <!-- Contenido principal -->
+  <div class="popup-container">
+    <h3 data-i18n="configuration">Configuración</h3>
+    
+    <div class="language-section">
+      <h3 data-i18n="language">Idioma</h3>
+      <div class="language-select" id="languageSelect">
+        <span id="currentLanguage">ES Español</span>
+        <span class="arrow">›</span>
+      </div>
+      <div class="language-options" id="languageOptions" style="display: none;">
+        <div class="language-option" data-lang="es">ES Español</div>
+        <div class="language-option" data-lang="en">EN English</div>
+      </div>
+    </div>
+    
+    <div class="notifications-section" style="margin-top: 24px; padding-top: 24px; border-top: 1px solid rgba(255, 255, 255, 0.1);">
+      <h3 data-i18n="clearSystemNotifications" style="margin-bottom: 8px;">Limpiar notificaciones del sistema</h3>
+      <p data-i18n="clearSystemNotificationsDesc" style="color: #94a3b8; font-size: 14px; margin-bottom: 16px;">Elimina todas las notificaciones persistentes de la barra del navegador.</p>
+      <button id="clearNotificationsBtn" class="btn-clear-action" style="width: 100%;">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M3 6h18"></path>
+          <path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"></path>
+          <path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"></path>
+        </svg>
+        <span data-i18n="clearSystemNotificationsBtn">Limpiar Notificaciones</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Footer dinámico -->
+  <div id="layout-footer"></div>
+
+  <!-- Scripts -->
+  <script type="module" src="config.js"></script>
+
+</body>
+</html>
