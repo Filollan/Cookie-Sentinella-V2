@@ -73,6 +73,11 @@ async function checkUserMenuExistence() {
 async function handleLogin() {
   console.log('🟢 Sesión iniciada - Activando protección');
   sessionActive = true;
+
+  if (!protectionEnabled) {
+    console.log('🟡 Protección desactivada: se omite blindaje y notificación de sesión protegida');
+    return;
+  }
   
   // Proteger cookies existentes
   const cookies = await chrome.cookies.getAll({
