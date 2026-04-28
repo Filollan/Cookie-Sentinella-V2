@@ -449,6 +449,10 @@ async function getLocalizedMessage(messageKey) {
 // Función para crear notificaciones con idioma apropiado
 async function createLocalizedNotification(notificationType, options = {}) {
   try {
+    if (!protectionEnabled) {
+      return;
+    }
+
     const lang = await getCurrentLanguage();
     
     // Definir las notificaciones por tipo
@@ -824,6 +828,8 @@ async function persistThreatEvent(payload) {
 }
 
 async function emitThreatAlert(tabId, verdict) {
+  if (!protectionEnabled) return;
+
   const state = getTabThreatState(tabId);
   const now = Date.now();
 
