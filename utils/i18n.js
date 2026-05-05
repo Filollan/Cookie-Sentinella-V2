@@ -323,14 +323,7 @@ class I18n {
       }
     });
     
-    // Traducir tooltips accesibles
-    const tooltipElements = document.querySelectorAll('[data-tooltip-i18n]');
-    tooltipElements.forEach(element => {
-      const key = element.getAttribute('data-tooltip-i18n');
-      const translation = this.t(key);
-      element.setAttribute('title', translation);
-      element.setAttribute('aria-label', translation);
-    });
+    this.initTooltips(document);
     
     // Actualizar título de la página si existe
     const titleElement = document.querySelector('title');
@@ -340,6 +333,104 @@ class I18n {
     }
   }
   
+  getTooltipText(element) {
+    const key = element.getAttribute('data-tooltip-i18n');
+    if (key) return this.t(key);
+    return element.dataset.tooltipText || element.getAttribute('data-tooltip') || element.getAttribute('aria-label') || '';
+  }
+
+  ensureTooltipElement() {
+    let tooltip = document.getElementById('cookie-sentinella-tooltip');
+    if (tooltip) return tooltip;
+
+    tooltip = document.createElement('span');
+    tooltip.id = 'cookie-sentinella-tooltip';
+    tooltip.className = 'cs-tooltip-v2';
+    tooltip.setAttribute('data-direction', 's');
+    tooltip.setAttribute('data-component', 'Tooltip');
+    tooltip.setAttribute('aria-hidden', 'true');
+    tooltip.setAttribute('popover', 'auto');
+    document.body.appendChild(tooltip);
+    return tooltip;
+  }
+
+  showTooltip(element) {
+    const message = this.getTooltipText(element);
+    if (!message) return;
+
+    const tooltip = this.ensureTooltipElement();
+    tooltip.textContent = message;
+    if (typeof tooltip.showPopover === 'function' && !tooltip.matches(':popover-open')) {
+      tooltip.showPopover();
+    }
+    tooltip.classList.add('visible');
+    tooltip.setAttribute('aria-hidden', 'false');
+
+    const tooltipId = tooltip.id;
+    element.setAttribute('aria-describedby', tooltipId);
+
+    const targetRect = element.getBoundingClientRect();
+    const tooltipRect = tooltip.getBoundingClientRect();
+    const gap = 8;
+    const viewportPadding = 8;
+
+    let direction = 's';
+    let top = targetRect.bottom + gap;
+    if (top + tooltipRect.height > window.innerHeight - viewportPadding) {
+      direction = 'n';
+      top = targetRect.top - tooltipRect.height - gap;
+    }
+
+    let left = targetRect.left + (targetRect.width / 2) - (tooltipRect.width / 2);
+    left = Math.max(viewportPadding, Math.min(left, window.innerWidth - tooltipRect.width - viewportPadding));
+    top = Math.max(viewportPadding, top);
+
+    tooltip.style.left = `${left}px`;
+    tooltip.style.top = `${top}px`;
+    tooltip.setAttribute('data-direction', direction);
+  }
+
+  hideTooltip(element = null) {
+    const tooltip = document.getElementById('cookie-sentinella-tooltip');
+    if (!tooltip) return;
+
+    tooltip.classList.remove('visible');
+    tooltip.setAttribute('aria-hidden', 'true');
+    if (typeof tooltip.hidePopover === 'function' && tooltip.matches(':popover-open')) {
+      tooltip.hidePopover();
+    }
+    if (element) element.removeAttribute('aria-describedby');
+  }
+
+  initTooltips(root = document) {
+    if (typeof document === 'undefined') return;
+
+    const scope = root || document;
+    const scopedElements = Array.from(scope.querySelectorAll('[data-tooltip-i18n], [data-tooltip]'));
+    const tooltipElements = scope.matches?.('[data-tooltip-i18n], [data-tooltip]')
+      ? [scope, ...scopedElements]
+      : scopedElements;
+    tooltipElements.forEach(element => {
+      const message = this.getTooltipText(element);
+      if (!message) return;
+
+      element.dataset.tooltipText = message;
+      element.removeAttribute('title');
+      element.setAttribute('aria-label', message);
+
+      if (element.dataset.tooltipBound === 'true') return;
+      element.dataset.tooltipBound = 'true';
+
+      element.addEventListener('pointerenter', () => this.showTooltip(element));
+      element.addEventListener('focus', () => this.showTooltip(element));
+      element.addEventListener('pointerleave', () => this.hideTooltip(element));
+      element.addEventListener('blur', () => this.hideTooltip(element));
+      element.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape') this.hideTooltip(element);
+      });
+    });
+  }
+
   // Método para obtener todas las traducciones de un idioma
   getAllTranslations(lang = null) {
     const language = lang || this.currentLanguage;

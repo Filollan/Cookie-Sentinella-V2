@@ -63,6 +63,7 @@ export function initFloatingChatbot() {
       fab.setAttribute('title', supportTooltip);
       closeBtn.setAttribute('aria-label', closeTooltip);
       closeBtn.setAttribute('title', closeTooltip);
+      i18n.initTooltips(widget);
     } catch (e) {
       console.warn("Traducciones no listas aún");
     }

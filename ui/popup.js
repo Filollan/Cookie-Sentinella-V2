@@ -49,6 +49,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       toggleBtn.setAttribute('aria-label', toggleTooltip);
       cleanupBtn.title = i18n.t('cleanSessionTooltip');
       cleanupBtn.setAttribute('aria-label', i18n.t('cleanSessionTooltip'));
+      i18n.initTooltips(document);
       
       toggleBtn.className = response.protection ? 'deactivate' : 'activate';
       setStatusIcon(response.protection);

@@ -96,6 +96,8 @@ class Navigation {
         }
       }
     });
+
+    i18n.initTooltips(document);
   }
 
   // Método para actualizar traducciones cuando cambie el idioma

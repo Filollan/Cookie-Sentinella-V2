@@ -138,6 +138,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       clearBtn.className = 'btn-clear-action';
       clearBtn.title = i18n.t('clearRecentEventsTooltip');
       clearBtn.setAttribute('aria-label', i18n.t('clearRecentEventsTooltip'));
+      clearBtn.setAttribute('data-tooltip-i18n', 'clearRecentEventsTooltip');
       clearBtn.style.padding = '6px 14px';
       clearBtn.style.fontSize = '0.85rem';
       clearBtn.innerHTML = `
@@ -200,6 +201,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       clearRecentEventsBtn.setAttribute('aria-label', tooltip);
       const label = clearRecentEventsBtn.querySelector('span');
       if (label) label.textContent = i18n.t('clearRecentEvents');
+      i18n.initTooltips(clearRecentEventsBtn.parentElement || document);
     }
 
     // Limpiar eventos anteriores
