@@ -354,7 +354,7 @@ class I18n {
     return tooltip;
   }
 
-  showTooltip(element) {
+  showTooltip(element, event = null) {
     const message = this.getTooltipText(element);
     if (!message) return;
 
@@ -371,17 +371,23 @@ class I18n {
 
     const targetRect = element.getBoundingClientRect();
     const tooltipRect = tooltip.getBoundingClientRect();
-    const gap = 8;
+    const gap = 6;
     const viewportPadding = 8;
+    const anchorX = typeof event?.clientX === 'number'
+      ? event.clientX
+      : targetRect.left + (targetRect.width / 2);
+    const anchorY = typeof event?.clientY === 'number'
+      ? event.clientY
+      : targetRect.bottom;
 
     let direction = 's';
-    let top = targetRect.bottom + gap;
+    let top = anchorY + gap;
     if (top + tooltipRect.height > window.innerHeight - viewportPadding) {
       direction = 'n';
-      top = targetRect.top - tooltipRect.height - gap;
+      top = anchorY - tooltipRect.height - gap;
     }
 
-    let left = targetRect.left + (targetRect.width / 2) - (tooltipRect.width / 2);
+    let left = anchorX - (tooltipRect.width / 2);
     left = Math.max(viewportPadding, Math.min(left, window.innerWidth - tooltipRect.width - viewportPadding));
     top = Math.max(viewportPadding, top);
 
@@ -421,7 +427,8 @@ class I18n {
       if (element.dataset.tooltipBound === 'true') return;
       element.dataset.tooltipBound = 'true';
 
-      element.addEventListener('pointerenter', () => this.showTooltip(element));
+      element.addEventListener('pointerenter', (event) => this.showTooltip(element, event));
+      element.addEventListener('pointermove', (event) => this.showTooltip(element, event));
       element.addEventListener('focus', () => this.showTooltip(element));
       element.addEventListener('pointerleave', () => this.hideTooltip(element));
       element.addEventListener('blur', () => this.hideTooltip(element));
