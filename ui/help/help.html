@@ -16,7 +16,7 @@
     <div class="help-section">
 
       <!-- FAQ estático expandible -->
-      <button class="help-card" id="faq-btn">
+      <button class="help-card" id="faq-btn" data-tooltip-i18n="faqTooltip" title="Muestra u oculta las preguntas frecuentes">
         <div class="icon">❓</div>
         <span data-i18n="faq">Preguntas frecuentes</span>
         <div class="arrow" id="faq-arrow">›</div>
@@ -25,7 +25,7 @@
       <!-- Panel FAQ -->
       <div id="faq-panel" class="faq-panel" style="display:none;">
         <div class="faq-item">
-          <button class="faq-question" data-index="0">
+          <button class="faq-question" data-index="0" data-tooltip-i18n="faqQuestionTooltip" title="Haz clic para ver u ocultar la respuesta">
             <span data-i18n="faqQ1">¿Qué hace CookieSentinella?</span>
             <span class="faq-chevron">+</span>
           </button>
@@ -34,7 +34,7 @@
           </div>
         </div>
         <div class="faq-item">
-          <button class="faq-question" data-index="1">
+          <button class="faq-question" data-index="1" data-tooltip-i18n="faqQuestionTooltip" title="Haz clic para ver u ocultar la respuesta">
             <span data-i18n="faqQ2">¿Cómo funciona la protección?</span>
             <span class="faq-chevron">+</span>
           </button>
@@ -43,7 +43,7 @@
           </div>
         </div>
         <div class="faq-item">
-          <button class="faq-question" data-index="2">
+          <button class="faq-question" data-index="2" data-tooltip-i18n="faqQuestionTooltip" title="Haz clic para ver u ocultar la respuesta">
             <span data-i18n="faqQ3">¿Qué hace "Limpiar Sesión"?</span>
             <span class="faq-chevron">+</span>
           </button>
@@ -52,7 +52,7 @@
           </div>
         </div>
         <div class="faq-item">
-          <button class="faq-question" data-index="3">
+          <button class="faq-question" data-index="3" data-tooltip-i18n="faqQuestionTooltip" title="Haz clic para ver u ocultar la respuesta">
             <span data-i18n="faqQ4">¿Qué son los intentos de XSS?</span>
             <span class="faq-chevron">+</span>
           </button>
@@ -61,7 +61,7 @@
           </div>
         </div>
         <div class="faq-item">
-          <button class="faq-question" data-index="4">
+          <button class="faq-question" data-index="4" data-tooltip-i18n="faqQuestionTooltip" title="Haz clic para ver u ocultar la respuesta">
             <span data-i18n="faqQ5">¿La extensión envía mis datos a algún servidor?</span>
             <span class="faq-chevron">+</span>
           </button>
@@ -71,13 +71,13 @@
         </div>
       </div>
 
-      <button class="help-card" id="support-btn">
+      <button class="help-card" id="support-btn" data-tooltip-i18n="supportTooltip" title="Abre el chat de soporte de CookieSentinella">
         <div class="icon">🛠️</div>
         <span data-i18n="support">Soporte</span>
         <div class="arrow">›</div>
       </button>
 
-      <button class="help-card" id="report-btn">
+      <button class="help-card" id="report-btn" data-tooltip-i18n="reportProblemTooltip" title="Muestra u oculta el formulario para reportar un problema">
         <div class="icon">💬</div>
         <span data-i18n="reportProblem">Informar de un problema</span>
         <div class="arrow" id="report-arrow">›</div>
@@ -92,7 +92,7 @@
           <label for="report-desc" data-i18n="reportDescLabel" class="form-label">Descripción del Problema:</label>
           <textarea id="report-desc" required placeholder="Describe tu problema detalladamente..." class="form-textarea" rows="4"></textarea>
           
-          <button type="submit" class="submit-btn form-submit" data-i18n="reportSubmitBtn">Enviar Reporte</button>
+          <button type="submit" class="submit-btn form-submit" data-i18n="reportSubmitBtn" data-tooltip-i18n="reportSubmitTooltip" title="Envía el reporte del problema al equipo de soporte">Enviar Reporte</button>
         </form>
       </div>
     </div>

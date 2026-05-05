@@ -127,6 +127,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       headerContainer.style.margin = '24px 0 16px 0';
 
       const title = document.createElement('h4');
+      title.id = 'recentEventsTitle';
       title.textContent = i18n.t('recentEvents');
       title.style.margin = '0';
       title.style.fontSize = '1.2rem';
@@ -135,6 +136,8 @@ document.addEventListener('DOMContentLoaded', async () => {
       const clearBtn = document.createElement('button');
       clearBtn.id = 'clearRecentEventsBtn';
       clearBtn.className = 'btn-clear-action';
+      clearBtn.title = i18n.t('clearRecentEventsTooltip');
+      clearBtn.setAttribute('aria-label', i18n.t('clearRecentEventsTooltip'));
       clearBtn.style.padding = '6px 14px';
       clearBtn.style.fontSize = '0.85rem';
       clearBtn.innerHTML = `
@@ -185,6 +188,18 @@ document.addEventListener('DOMContentLoaded', async () => {
       const container = document.querySelector('.popup-container.notification-container');
       container.appendChild(headerContainer);
       container.appendChild(eventsContainer);
+    }
+
+    const recentEventsTitle = document.getElementById('recentEventsTitle');
+    if (recentEventsTitle) recentEventsTitle.textContent = i18n.t('recentEvents');
+
+    const clearRecentEventsBtn = document.getElementById('clearRecentEventsBtn');
+    if (clearRecentEventsBtn) {
+      const tooltip = i18n.t('clearRecentEventsTooltip');
+      clearRecentEventsBtn.title = tooltip;
+      clearRecentEventsBtn.setAttribute('aria-label', tooltip);
+      const label = clearRecentEventsBtn.querySelector('span');
+      if (label) label.textContent = i18n.t('clearRecentEvents');
     }
 
     // Limpiar eventos anteriores

@@ -37,21 +37,21 @@ h3 {
 .notification-icon {
   width: 48px;
   height: 48px;
-  border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
-  color: white;
-  font-size: 1.5rem;
+  background: transparent;
+  font-size: 1.9rem;
   font-weight: bold;
+  line-height: 1;
 }
 
-.notification-icon.green { background-color: #10b981; }
-.notification-icon.red { background-color: #ef4444; }
-.notification-icon.blue { background-color: #3b82f6; }
-.notification-icon.yellow { background-color: #f59e0b; }
-.notification-icon.purple { background-color: #8b5cf6; }
+.notification-icon.green { color: #10b981; }
+.notification-icon.red { color: #ef4444; }
+.notification-icon.blue { color: #3b82f6; }
+.notification-icon.yellow { color: #f59e0b; }
+.notification-icon.purple { color: #8b5cf6; }
 
 .notification-text {
   flex-grow: 1;
@@ -101,7 +101,7 @@ h3 {
 .notification-icon.small {
   width: 32px;
   height: 32px;
-  font-size: 1rem;
+  font-size: 1.25rem;
 }
 
 .event-text {
@@ -193,7 +193,7 @@ h3 {
   .notification-icon {
     width: 40px;
     height: 40px;
-    font-size: 1.2rem;
+    font-size: 1.55rem;
   }
   
   .notification-text h2 {

@@ -37,20 +37,27 @@ document.addEventListener('DOMContentLoaded', async () => {
     if (langTitle) langTitle.textContent = i18n.t('language');
   }
   
-  // Alternar visibilidad de opciones de idioma
-  languageSelect.addEventListener('click', () => {
+  function toggleLanguageOptions() {
     const isVisible = languageOptions.style.display !== 'none';
     languageOptions.style.display = isVisible ? 'none' : 'block';
     
     // Rotar flecha
     const arrow = languageSelect.querySelector('.arrow');
     arrow.style.transform = isVisible ? 'rotate(0deg)' : 'rotate(90deg)';
+  }
+
+  // Alternar visibilidad de opciones de idioma
+  languageSelect.addEventListener('click', toggleLanguageOptions);
+  languageSelect.addEventListener('keydown', (event) => {
+    if (event.key === 'Enter' || event.key === ' ') {
+      event.preventDefault();
+      toggleLanguageOptions();
+    }
   });
   
   // Manejar selección de idioma
-  languageOptionElements.forEach(option => {
-    option.addEventListener('click', async (e) => {
-      const selectedLang = e.target.getAttribute('data-lang');
+  async function selectLanguage(option) {
+      const selectedLang = option.getAttribute('data-lang');
       
       // Guardar idioma seleccionado
       const success = await i18n.setLanguage(selectedLang);
@@ -76,6 +83,15 @@ document.addEventListener('DOMContentLoaded', async () => {
         
         // Mostrar confirmación visual
         showLanguageChangeConfirmation();
+      }
+  }
+
+  languageOptionElements.forEach(option => {
+    option.addEventListener('click', () => selectLanguage(option));
+    option.addEventListener('keydown', (event) => {
+      if (event.key === 'Enter' || event.key === ' ') {
+        event.preventDefault();
+        selectLanguage(option);
       }
     });
   });

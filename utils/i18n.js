@@ -104,7 +104,29 @@ class I18n {
         chatNotAvailable: 'Chat no disponible temporalmente',
         chatError: 'Error al cargar el chat',
         chatErrorMessage: 'No se pudo conectar con el servicio de chat. Por favor, intenta más tarde o contacta soporte por email.',
-        retryChat: 'Reintentar'
+        retryChat: 'Reintentar',
+
+        // Tooltips
+        toggleProtectionTooltip: 'Activa o desactiva la protección automática de cookies y alertas.',
+        activateProtectionTooltip: 'Enciende el blindaje de cookies y las alertas de seguridad.',
+        deactivateProtectionTooltip: 'Apaga temporalmente el blindaje de cookies y las notificaciones de seguridad.',
+        cleanSessionTooltip: 'Elimina las cookies de sesión Moodle y limpia el estado actual.',
+        homeTooltip: 'Abre el panel principal de estado de CookieSentinella.',
+        notificationsTooltip: 'Muestra estadísticas, eventos recientes y patrones detectados.',
+        configurationTooltip: 'Abre las opciones de idioma y limpieza de notificaciones.',
+        helpTooltip: 'Abre preguntas frecuentes, soporte y reporte de problemas.',
+        languageSelectTooltip: 'Selecciona el idioma de la interfaz.',
+        spanishOptionTooltip: 'Cambiar la interfaz a español.',
+        englishOptionTooltip: 'Cambiar la interfaz a inglés.',
+        clearSystemNotificationsTooltip: 'Borra las notificaciones persistentes de CookieSentinella en el navegador.',
+        clearRecentEventsTooltip: 'Elimina el historial reciente mostrado en este panel.',
+        faqTooltip: 'Muestra u oculta las preguntas frecuentes.',
+        faqQuestionTooltip: 'Haz clic para ver u ocultar la respuesta.',
+        supportTooltip: 'Abre el chat de soporte de CookieSentinella.',
+        reportProblemTooltip: 'Muestra u oculta el formulario para reportar un problema.',
+        reportSubmitTooltip: 'Envía el reporte del problema al equipo de soporte.',
+        supportChatTooltip: 'Abre el chat flotante de soporte.',
+        closeChatTooltip: 'Cierra el chat de soporte.'
       },
       
       en: {
@@ -207,7 +229,29 @@ class I18n {
         chatNotAvailable: 'Chat temporarily unavailable',
         chatError: 'Error loading chat',
         chatErrorMessage: 'Could not connect to chat service. Please try again later or contact support via email.',
-        retryChat: 'Retry'
+        retryChat: 'Retry',
+
+        // Tooltips
+        toggleProtectionTooltip: 'Turn automatic cookie protection and alerts on or off.',
+        activateProtectionTooltip: 'Turn on cookie hardening and security alerts.',
+        deactivateProtectionTooltip: 'Temporarily turn off cookie hardening and security notifications.',
+        cleanSessionTooltip: 'Delete Moodle session cookies and clear the current state.',
+        homeTooltip: 'Open the main CookieSentinella status panel.',
+        notificationsTooltip: 'Show statistics, recent events, and detected patterns.',
+        configurationTooltip: 'Open language options and notification cleanup tools.',
+        helpTooltip: 'Open FAQs, support, and problem reporting.',
+        languageSelectTooltip: 'Select the interface language.',
+        spanishOptionTooltip: 'Switch the interface to Spanish.',
+        englishOptionTooltip: 'Switch the interface to English.',
+        clearSystemNotificationsTooltip: 'Clear persistent CookieSentinella browser notifications.',
+        clearRecentEventsTooltip: 'Delete the recent history shown in this panel.',
+        faqTooltip: 'Show or hide frequently asked questions.',
+        faqQuestionTooltip: 'Click to show or hide the answer.',
+        supportTooltip: 'Open the CookieSentinella support chat.',
+        reportProblemTooltip: 'Show or hide the problem report form.',
+        reportSubmitTooltip: 'Send the problem report to the support team.',
+        supportChatTooltip: 'Open the floating support chat.',
+        closeChatTooltip: 'Close the support chat.'
       }
     };
     
@@ -277,6 +321,15 @@ class I18n {
       } else {
         element.textContent = translation;
       }
+    });
+    
+    // Traducir tooltips accesibles
+    const tooltipElements = document.querySelectorAll('[data-tooltip-i18n]');
+    tooltipElements.forEach(element => {
+      const key = element.getAttribute('data-tooltip-i18n');
+      const translation = this.t(key);
+      element.setAttribute('title', translation);
+      element.setAttribute('aria-label', translation);
     });
     
     // Actualizar título de la página si existe

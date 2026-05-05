@@ -41,6 +41,14 @@ document.addEventListener('DOMContentLoaded', async () => {
       toggleBtn.textContent = response.protection
         ? i18n.t('deactivateProtection')
         : i18n.t('activateProtection');
+
+      const toggleTooltip = response.protection
+        ? i18n.t('deactivateProtectionTooltip')
+        : i18n.t('activateProtectionTooltip');
+      toggleBtn.title = toggleTooltip;
+      toggleBtn.setAttribute('aria-label', toggleTooltip);
+      cleanupBtn.title = i18n.t('cleanSessionTooltip');
+      cleanupBtn.setAttribute('aria-label', i18n.t('cleanSessionTooltip'));
       
       toggleBtn.className = response.protection ? 'deactivate' : 'activate';
       setStatusIcon(response.protection);

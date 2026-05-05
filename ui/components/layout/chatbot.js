@@ -18,7 +18,7 @@ export function initFloatingChatbot() {
   const widget = document.createElement('div');
   widget.id = 'csbotWidget';
   widget.innerHTML = `
-    <button id="csbotFab" class="csbot-fab" aria-label="Abrir chat de soporte" title="Soporte">
+    <button id="csbotFab" class="csbot-fab" aria-label="Abrir chat de soporte" title="Soporte" data-tooltip-i18n="supportChatTooltip">
       <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
         <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
       </svg>
@@ -29,7 +29,7 @@ export function initFloatingChatbot() {
       <div id="csbotPanel" class="chatbot-container" role="dialog" aria-modal="true" aria-labelledby="chatbotTitle">
         <div class="chatbot-header">
           <h4 id="chatbotTitle">Chat de Soporte</h4>
-          <button id="closeChatbot" class="close-btn" aria-label="Cerrar chat">&times;</button>
+          <button id="closeChatbot" class="close-btn" aria-label="Cerrar chat" title="Cerrar chat" data-tooltip-i18n="closeChatTooltip">&times;</button>
         </div>
         <div class="chatbot-content" id="chatbotContent">
           <iframe
@@ -57,8 +57,12 @@ export function initFloatingChatbot() {
   const updateTranslations = () => {
     try {
       titleEl.textContent = i18n.t('supportChat') || 'Chat de Soporte';
-      fab.setAttribute('aria-label', i18n.t('supportChat') || 'Chat de Soporte');
-      fab.setAttribute('title', i18n.t('supportChat') || 'Chat de Soporte');
+      const supportTooltip = i18n.t('supportChatTooltip') || i18n.t('supportChat') || 'Chat de Soporte';
+      const closeTooltip = i18n.t('closeChatTooltip') || 'Cerrar chat';
+      fab.setAttribute('aria-label', supportTooltip);
+      fab.setAttribute('title', supportTooltip);
+      closeBtn.setAttribute('aria-label', closeTooltip);
+      closeBtn.setAttribute('title', closeTooltip);
     } catch (e) {
       console.warn("Traducciones no listas aún");
     }
