@@ -523,6 +523,9 @@ body {
 ============================= */
 .cs-tooltip-v2 {
   position: fixed;
+  inset: auto;
+  margin: 0;
+  border: none;
   z-index: 10000;
   max-width: 260px;
   padding: 7px 10px;
@@ -560,6 +563,3 @@ body {
   top: -4px;
 }
 
-.cs-tooltip-v2[data-direction='n']::after {
-  bottom: -4px;
-}

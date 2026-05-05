@@ -375,20 +375,13 @@ class I18n {
     const viewportPadding = 8;
     const anchorX = targetRect.left + (targetRect.width / 2);
 
-    let direction = 's';
-    let top = targetRect.bottom + gap;
-    if (top + tooltipRect.height > window.innerHeight - viewportPadding) {
-      direction = 'n';
-      top = targetRect.top - tooltipRect.height - gap;
-    }
-
+    const top = targetRect.bottom + gap;
     let left = anchorX - (tooltipRect.width / 2);
     left = Math.max(viewportPadding, Math.min(left, window.innerWidth - tooltipRect.width - viewportPadding));
-    top = Math.max(viewportPadding, top);
 
     tooltip.style.left = `${left}px`;
     tooltip.style.top = `${top}px`;
-    tooltip.setAttribute('data-direction', direction);
+    tooltip.setAttribute('data-direction', 's');
   }
 
   hideTooltip(element = null) {
