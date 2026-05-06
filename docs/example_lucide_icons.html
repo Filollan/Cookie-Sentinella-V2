@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ejemplo Iconos Lucide - CookieSentinella</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .container {
+      background: white;
+      border-radius: 16px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+      padding: 40px;
+      max-width: 500px;
+      width: 100%;
+    }
+
+    h1 {
+      font-size: 1.75rem;
+      color: #1f2937;
+      margin-bottom: 8px;
+      text-align: center;
+      font-weight: 700;
+    }
+
+    .subtitle {
+      text-align: center;
+      color: #6b7280;
+      margin-bottom: 32px;
+      font-size: 0.95rem;
+    }
+
+    .notification-card {
+      border-radius: 12px;
+      background-color: #ffffff;
+      border: 1px solid #e5e7eb;
+      padding: 16px;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      transition: all 0.2s ease;
+    }
+
+    .notification-card:hover {
+      background-color: #f9fafb;
+      border-color: #d1d5db;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    }
+
+    .notification-icon {
+      width: 44px;
+      height: 44px;
+      min-width: 44px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: #f3f4f6;
+      border-radius: 10px;
+      color: #1f2937;
+      transition: background-color 0.2s ease;
+    }
+
+    .notification-card:hover .notification-icon {
+      background-color: #e5e7eb;
+    }
+
+    svg {
+      width: 24px;
+      height: 24px;
+      stroke: #1f2937;
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .notification-text {
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .counter {
+      font-size: 1.5rem;
+      color: #111827;
+      font-weight: 700;
+      line-height: 1.2;
+      margin: 0;
+    }
+
+    .label {
+      font-size: 0.95rem;
+      color: #6b7280;
+      font-weight: 500;
+      margin: 0;
+    }
+
+    .badge {
+      background: #dbeafe;
+      color: #1e40af;
+      font-size: 0.75rem;
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-weight: 600;
+      display: inline-block;
+      width: fit-content;
+    }
+
+    .patterns-section {
+      margin-top: 32px;
+      padding-top: 24px;
+      border-top: 1px solid #e5e7eb;
+    }
+
+    .section-title {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: #374151;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 12px;
+      display: block;
+    }
+
+    .patterns-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .pattern-chip {
+      background-color: #f0f4f8;
+      color: #374151;
+      padding: 6px 12px;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      font-weight: 500;
+      border: 1px solid #e5e7eb;
+      transition: all 0.2s ease;
+      cursor: default;
+    }
+
+    .pattern-chip:hover {
+      background-color: #e5e7eb;
+      border-color: #d1d5db;
+    }
+
+    .info-box {
+      background: #ecfdf5;
+      border: 1px solid #d1fae5;
+      border-radius: 8px;
+      padding: 12px;
+      margin-top: 20px;
+      font-size: 0.85rem;
+      color: #065f46;
+    }
+
+    @media (max-width: 480px) {
+      .container {
+        padding: 24px;
+      }
+
+      .notification-card {
+        padding: 14px;
+        gap: 12px;
+      }
+
+      .notification-icon {
+        width: 40px;
+        height: 40px;
+      }
+
+      svg {
+        width: 22px;
+        height: 22px;
+      }
+
+      .counter {
+        font-size: 1.3rem;
+      }
+
+      .label {
+        font-size: 0.9rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Notificaciones</h1>
+    <p class="subtitle">Iconos profesionales de Lucide</p>
+
+    <!-- Tarjeta: Cookies protegidas -->
+    <div class="notification-card">
+      <div class="notification-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+          <polyline points="10 19 12 21 16 17"></polyline>
+        </svg>
+      </div>
+      <div class="notification-text">
+        <p class="counter">42</p>
+        <p class="label">Cookies protegidas</p>
+      </div>
+    </div>
+
+    <!-- Tarjeta: Intentos de XSS -->
+    <div class="notification-card">
+      <div class="notification-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+          <line x1="12" y1="8" x2="12" y2="12"></line>
+          <line x1="12" y1="16" x2="12.01" y2="16"></line>
+        </svg>
+      </div>
+      <div class="notification-text">
+        <p class="counter">7</p>
+        <p class="label">Intentos de XSS</p>
+      </div>
+    </div>
+
+    <!-- Tarjeta: Cambios de fingerprint -->
+    <div class="notification-card">
+      <div class="notification-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+          <circle cx="12" cy="12" r="10"></circle>
+          <path d="M12 4c-3.3 0-6.2 1.5-8.1 3.8m16.2 0C18.2 5.5 15.3 4 12 4"></path>
+          <path d="M12 20c3.3 0 6.2-1.5 8.1-3.8m-16.2 0C5.8 18.5 8.7 20 12 20"></path>
+          <path d="M8 12h8"></path>
+          <circle cx="12" cy="12" r="1"></circle>
+        </svg>
+      </div>
+      <div class="notification-text">
+        <p class="counter">3</p>
+        <p class="label">Cambios de fingerprint</p>
+      </div>
+    </div>
+
+    <!-- Tarjeta: Intentos de exportación -->
+    <div class="notification-card">
+      <div class="notification-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+          <line x1="17" y1="7" x2="17" y2="17"></line>
+          <polyline points="12 2 17 7 12 12"></polyline>
+          <path d="M12 17H6a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h7"></path>
+        </svg>
+      </div>
+      <div class="notification-text">
+        <p class="counter">2</p>
+        <p class="label">Intentos de exportación</p>
+      </div>
+    </div>
+
+    <!-- Tarjeta: Patrones de amenaza -->
+    <div class="notification-card">
+      <div class="notification-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+          <path d="M9.59 4.59A2 2 0 1 0 8 2.5a2 2 0 0 0 1.59 2.09z"></path>
+          <path d="M16.41 4.59A2 2 0 1 0 15 2.5a2 2 0 0 0 1.41 2.09z"></path>
+          <path d="M12 12c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"></path>
+          <path d="M12 20v-2"></path>
+          <path d="M6 17a2 2 0 0 0-2 2v1"></path>
+          <path d="M20 17a2 2 0 0 0-2 2v1"></path>
+        </svg>
+      </div>
+      <div class="notification-text">
+        <p class="counter">12</p>
+        <p class="label">Patrones de amenaza detectados</p>
+      </div>
+    </div>
+
+    <!-- Sección de patrones activos -->
+    <div class="patterns-section">
+      <span class="section-title">Patrones activos</span>
+      <div class="patterns-list">
+        <span class="pattern-chip">SQL Injection Attempts</span>
+        <span class="pattern-chip">XSS Vectors</span>
+        <span class="pattern-chip">Cookie Theft</span>
+        <span class="pattern-chip">Bot Detection</span>
+      </div>
+    </div>
+
+    <!-- Info box -->
+    <div class="info-box">
+      ✓ Todos los iconos son monocromáticos (#1F2937), profesionales y responsivos. Prueba hacer hover sobre las tarjetas.
+    </div>
+  </div>
+</body>
+</html>
