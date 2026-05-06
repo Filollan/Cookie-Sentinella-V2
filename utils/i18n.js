@@ -371,17 +371,23 @@ class I18n {
 
     const targetRect = element.getBoundingClientRect();
     const tooltipRect = tooltip.getBoundingClientRect();
-    const gap = 2;
+    const gap = 8;
     const viewportPadding = 8;
     const anchorX = targetRect.left + (targetRect.width / 2);
+    const preferredPlacement = element.dataset.tooltipPlacement || 'bottom';
+    const showAbove = preferredPlacement === 'top';
 
-    const top = targetRect.bottom + gap;
+    let top = showAbove
+      ? targetRect.top - tooltipRect.height - gap
+      : targetRect.bottom + gap;
+    top = Math.max(viewportPadding, Math.min(top, window.innerHeight - tooltipRect.height - viewportPadding));
+
     let left = anchorX - (tooltipRect.width / 2);
     left = Math.max(viewportPadding, Math.min(left, window.innerWidth - tooltipRect.width - viewportPadding));
 
     tooltip.style.left = `${left}px`;
     tooltip.style.top = `${top}px`;
-    tooltip.setAttribute('data-direction', 's');
+    tooltip.setAttribute('data-direction', showAbove ? 'n' : 's');
   }
 
   hideTooltip(element = null) {

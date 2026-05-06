@@ -563,3 +563,7 @@ body {
   top: -4px;
 }
 
+.cs-tooltip-v2[data-direction='n']::after {
+  bottom: -4px;
+}
+
