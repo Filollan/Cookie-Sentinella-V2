@@ -499,19 +499,17 @@ body {
   opacity: 0.75;
 }
 
-.bottom-nav .nav-btn .nav-icon {
-  width: 24px;
-  height: 24px;
+.bottom-nav .nav-btn img {
   margin-bottom: 2px;
-  color: currentColor;
+  filter: brightness(0) invert(1);
 }
 
 .bottom-nav .nav-btn.active {
   color: #222;
 }
 
-.bottom-nav .nav-btn.active .nav-icon {
-  color: #20B2AA;
+.bottom-nav .nav-btn.active img {
+  filter: drop-shadow(0 0 0 #20B2AA) brightness(0) saturate(100%);
 }
 
 /* =============================
