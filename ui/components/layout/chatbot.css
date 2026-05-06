@@ -143,10 +143,22 @@
   gap: 8px;
 }
 
-.chatbot-header h4::before {
-  content: '🛡️';
-  font-size: 1.25rem;
+.chatbot-title-icon {
+  width: 22px;
+  height: 22px;
+  display: inline-flex;
   filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
+}
+
+.chatbot-title-icon .lucide-icon,
+.csbot-fab .lucide-icon {
+  width: 24px;
+  height: 24px;
+}
+
+.close-btn .lucide-icon {
+  width: 18px;
+  height: 18px;
 }
 
 .close-btn {

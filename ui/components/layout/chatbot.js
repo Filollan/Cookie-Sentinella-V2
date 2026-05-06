@@ -2,6 +2,7 @@
 // Chatbot flotante global integrado con Chatbase (iframe en modal)
 
 import i18n from '../../../utils/i18n.js';
+import { getIcon } from '../../utils/lucideIcons.js';
 
 const CHATBASE_IFRAME_URL = 'https://www.chatbase.co/chatbot-iframe/Au5_7fF9fgcmrNBJY_m0a';
 
@@ -19,17 +20,15 @@ export function initFloatingChatbot() {
   widget.id = 'csbotWidget';
   widget.innerHTML = `
     <button id="csbotFab" class="csbot-fab" aria-label="Abrir chat de soporte" title="Soporte" data-tooltip-i18n="supportChatTooltip">
-      <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
-      </svg>
+${getIcon('MessageCircle')}
     </button>
 
     <div id="chatbotModal" class="chatbot-modal" style="display: none;">
       <div class="chatbot-overlay"></div>
       <div id="csbotPanel" class="chatbot-container" role="dialog" aria-modal="true" aria-labelledby="chatbotTitle">
         <div class="chatbot-header">
-          <h4 id="chatbotTitle">Chat de Soporte</h4>
-          <button id="closeChatbot" class="close-btn" aria-label="Cerrar chat" title="Cerrar chat" data-tooltip-i18n="closeChatTooltip">&times;</button>
+          <h4 id="chatbotTitle"><span class="chatbot-title-icon">${getIcon('ShieldCheck')}</span><span id="chatbotTitleText">Chat de Soporte</span></h4>
+          <button id="closeChatbot" class="close-btn" aria-label="Cerrar chat" title="Cerrar chat" data-tooltip-i18n="closeChatTooltip">${getIcon('X')}</button>
         </div>
         <div class="chatbot-content" id="chatbotContent">
           <iframe
@@ -52,7 +51,7 @@ export function initFloatingChatbot() {
   const fab = document.getElementById('csbotFab');
   const closeBtn = document.getElementById('closeChatbot');
   const overlay = modal?.querySelector('.chatbot-overlay');
-  const titleEl = document.getElementById('chatbotTitle');
+  const titleEl = document.getElementById('chatbotTitleText');
 
   const updateTranslations = () => {
     try {

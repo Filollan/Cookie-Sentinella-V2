@@ -271,6 +271,13 @@ body {
   left: 100%;
 }
 
+.lucide-icon {
+  width: 1em;
+  height: 1em;
+  display: block;
+  flex-shrink: 0;
+}
+
 /* =============================
    Botones de Limpieza / Peligro
 ============================= */
@@ -492,17 +499,19 @@ body {
   opacity: 0.75;
 }
 
-.bottom-nav .nav-btn img {
+.bottom-nav .nav-btn .nav-icon {
+  width: 24px;
+  height: 24px;
   margin-bottom: 2px;
-  filter: brightness(0) invert(1);
+  color: currentColor;
 }
 
 .bottom-nav .nav-btn.active {
   color: #222;
 }
 
-.bottom-nav .nav-btn.active img {
-  filter: drop-shadow(0 0 0 #20B2AA) brightness(0) saturate(100%);
+.bottom-nav .nav-btn.active .nav-icon {
+  color: #20B2AA;
 }
 
 /* =============================
