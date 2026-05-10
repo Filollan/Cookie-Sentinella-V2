@@ -271,6 +271,13 @@ body {
   left: 100%;
 }
 
+.lucide-icon {
+  width: 1em;
+  height: 1em;
+  display: block;
+  flex-shrink: 0;
+}
+
 /* =============================
    Botones de Limpieza / Peligro
 ============================= */

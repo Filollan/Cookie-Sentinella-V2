@@ -2,6 +2,7 @@
 
 import { loadLayout } from '../components/layout/layout.js';
 import i18n from '../../utils/i18n.js';
+import { getIcon } from '../utils/lucideIcons.js';
 
 document.addEventListener('DOMContentLoaded', async () => {
   // Cargar layout
@@ -109,15 +110,16 @@ document.addEventListener('DOMContentLoaded', async () => {
       color: white;
       padding: 16px 24px;
       border-radius: 12px;
-      font-weight: 600;
+      font-weight: 600; display: flex; align-items: center; justify-content: center; gap: 8px;
       box-shadow: 0 4px 16px rgba(16, 185, 129, 0.3);
       z-index: 1000;
       animation: fadeInOut 2s ease-in-out;
     `;
     
-    confirmation.textContent = i18n.getCurrentLanguage() === 'es' 
-      ? '✓ Idioma cambiado correctamente' 
-      : '✓ Language changed successfully';
+    const message = i18n.getCurrentLanguage() === 'es'
+      ? 'Idioma cambiado correctamente'
+      : 'Language changed successfully';
+    confirmation.innerHTML = `${getIcon('CheckCircle')}<span>${message}</span>`;
     
     // Agregar animación CSS
     const style = document.createElement('style');
@@ -156,7 +158,8 @@ document.addEventListener('DOMContentLoaded', async () => {
       // Deshabilitar botón temporalmente y mostrar estado de carga
       clearNotificationsBtn.disabled = true;
       const originalHtml = clearNotificationsBtn.innerHTML;
-      clearNotificationsBtn.innerHTML = '<span class="loading-spinner"></span> Limpiando...';
+      clearNotificationsBtn.innerHTML = `${getIcon('LoaderCircle')} ${i18n.t('cleaning') || 'Limpiando...'}`;
+      clearNotificationsBtn.querySelector('svg')?.classList.add('animate-spin');
       
       try {
         // Obtener todas las notificaciones activas
@@ -205,13 +208,13 @@ document.addEventListener('DOMContentLoaded', async () => {
       color: white;
       padding: 16px 24px;
       border-radius: 12px;
-      font-weight: 600;
+      font-weight: 600; display: flex; align-items: center; justify-content: center; gap: 8px;
       box-shadow: 0 4px 16px rgba(16, 185, 129, 0.3);
       z-index: 1000;
       animation: fadeInOut 2s ease-in-out;
     `;
     
-    confirmation.textContent = '✓ ' + i18n.t('notificationsCleared');
+    confirmation.innerHTML = `${getIcon('CheckCircle')}<span>${i18n.t('notificationsCleared')}</span>`;
     
     // Verificar si el estilo ya existe
     if (!document.getElementById('confirmation-style')) {

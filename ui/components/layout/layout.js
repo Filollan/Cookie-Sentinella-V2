@@ -2,6 +2,7 @@
 
 import i18n from '../../../utils/i18n.js';
 import { initFloatingChatbot } from './chatbot.js';
+import { renderLucideIcons } from '../../utils/lucideIcons.js';
 
 export async function loadLayout(activePage = '') {
   const headerContainer = document.getElementById('layout-header');
@@ -23,6 +24,8 @@ export async function loadLayout(activePage = '') {
 
     if (headerContainer) headerContainer.innerHTML = headerHtml;
     if (footerContainer) footerContainer.innerHTML = footerHtml;
+
+    renderLucideIcons(document);
 
     // Inicializar i18n
     await i18n.init();
