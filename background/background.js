@@ -859,6 +859,17 @@ async function emitThreatAlert(tabId, verdict) {
     ]
   });
 
+  chrome.tabs.sendMessage(tabId, {
+    action: 'showCenteredThreatAlert',
+    payload: {
+      title: 'CookieSentinella — Alerta de amenazas',
+      message,
+      severity: verdict.severity
+    }
+  }).catch(() => {
+    // Si no hay content script activo en la pestaña, se mantiene la notificación del sistema.
+  });
+
   state.lastAlertAt = now;
   state.lastSeverity = verdict.severity;
 
