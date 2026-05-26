@@ -73,6 +73,11 @@ async function checkUserMenuExistence() {
 async function handleLogin() {
   console.log('🟢 Sesión iniciada - Activando protección');
   sessionActive = true;
+
+  if (!protectionEnabled) {
+    console.log('🟡 Protección desactivada: se omite blindaje y notificación de sesión protegida');
+    return;
+  }
   
   // Proteger cookies existentes
   const cookies = await chrome.cookies.getAll({
@@ -444,6 +449,10 @@ async function getLocalizedMessage(messageKey) {
 // Función para crear notificaciones con idioma apropiado
 async function createLocalizedNotification(notificationType, options = {}) {
   try {
+    if (!protectionEnabled) {
+      return;
+    }
+
     const lang = await getCurrentLanguage();
     
     // Definir las notificaciones por tipo
@@ -819,6 +828,8 @@ async function persistThreatEvent(payload) {
 }
 
 async function emitThreatAlert(tabId, verdict) {
+  if (!protectionEnabled) return;
+
   const state = getTabThreatState(tabId);
   const now = Date.now();
 

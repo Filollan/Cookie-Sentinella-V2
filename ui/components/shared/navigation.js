@@ -28,7 +28,14 @@ class Navigation {
     Object.keys(this.pages).forEach(btnId => {
       const button = document.getElementById(btnId);
       if (button) {
-        button.addEventListener('click', () => this.navigateTo(this.pages[btnId]));
+        const navigate = () => this.navigateTo(this.pages[btnId]);
+        button.addEventListener('click', navigate);
+        button.addEventListener('keydown', (event) => {
+          if (event.key === 'Enter' || event.key === ' ') {
+            event.preventDefault();
+            navigate();
+          }
+        });
       }
     });
   }
@@ -80,8 +87,17 @@ class Navigation {
         if (textElement) {
           textElement.textContent = i18n.t(navButtons[btnId]);
         }
+
+        const tooltipKey = button.getAttribute('data-tooltip-i18n');
+        if (tooltipKey) {
+          const tooltip = i18n.t(tooltipKey);
+          button.setAttribute('title', tooltip);
+          button.setAttribute('aria-label', tooltip);
+        }
       }
     });
+
+    i18n.initTooltips(document);
   }
 
   // Método para actualizar traducciones cuando cambie el idioma

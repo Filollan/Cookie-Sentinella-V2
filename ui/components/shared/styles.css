@@ -271,6 +271,13 @@ body {
   left: 100%;
 }
 
+.lucide-icon {
+  width: 1em;
+  height: 1em;
+  display: block;
+  flex-shrink: 0;
+}
+
 /* =============================
    Botones de Limpieza / Peligro
 ============================= */
@@ -517,3 +524,49 @@ body {
   from { transform: rotate(0deg); }
   to   { transform: rotate(360deg); }
 }
+
+/* =============================
+   Tooltips contextuales
+============================= */
+.cs-tooltip-v2 {
+  position: fixed;
+  inset: auto;
+  margin: 0;
+  border: none;
+  z-index: 10000;
+  max-width: 260px;
+  padding: 7px 10px;
+  border-radius: 8px;
+  background: #111827;
+  color: #ffffff;
+  font-size: 0.75rem;
+  font-weight: 600;
+  line-height: 1.35;
+  text-align: center;
+  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.22);
+  pointer-events: none;
+  opacity: 0;
+  transform: translateY(-3px) scale(0.98);
+  transition: opacity 0.12s ease, transform 0.12s ease;
+  white-space: normal;
+}
+
+.cs-tooltip-v2.visible {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+.cs-tooltip-v2::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  width: 8px;
+  height: 8px;
+  background: #111827;
+  transform: translateX(-50%) rotate(45deg);
+}
+
+.cs-tooltip-v2[data-direction='s']::after {
+  top: -4px;
+}
+

@@ -2,6 +2,7 @@
 
 import { loadLayout } from '../components/layout/layout.js';
 import i18n from '../../utils/i18n.js';
+import { getIcon } from '../utils/lucideIcons.js';
 
 // Cargar layout con la pestaña "notificaciones" activa
 loadLayout('notificaciones');
@@ -127,6 +128,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       headerContainer.style.margin = '24px 0 16px 0';
 
       const title = document.createElement('h4');
+      title.id = 'recentEventsTitle';
       title.textContent = i18n.t('recentEvents');
       title.style.margin = '0';
       title.style.fontSize = '1.2rem';
@@ -135,21 +137,21 @@ document.addEventListener('DOMContentLoaded', async () => {
       const clearBtn = document.createElement('button');
       clearBtn.id = 'clearRecentEventsBtn';
       clearBtn.className = 'btn-clear-action';
+      clearBtn.title = i18n.t('clearRecentEventsTooltip');
+      clearBtn.setAttribute('aria-label', i18n.t('clearRecentEventsTooltip'));
+      clearBtn.setAttribute('data-tooltip-i18n', 'clearRecentEventsTooltip');
       clearBtn.style.padding = '6px 14px';
       clearBtn.style.fontSize = '0.85rem';
       clearBtn.innerHTML = `
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M3 6h18"></path>
-          <path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"></path>
-          <path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"></path>
-        </svg>
+        ${getIcon('Trash2')}
         <span>${i18n.t('clearRecentEvents')}</span>
       `;
       
       clearBtn.addEventListener('click', async () => {
         clearBtn.disabled = true;
         const originalHtml = clearBtn.innerHTML;
-        clearBtn.innerHTML = '<span class="loading-spinner"></span>';
+        clearBtn.innerHTML = getIcon('LoaderCircle');
+        clearBtn.querySelector('svg')?.classList.add('animate-spin');
         
         try {
           await chrome.runtime.sendMessage({ action: 'clearRecentEvents' });
@@ -160,10 +162,10 @@ document.addEventListener('DOMContentLoaded', async () => {
           confirmation.style.cssText = `
             position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);
             background: #10b981; color: white; padding: 16px 24px; border-radius: 12px;
-            font-weight: 600; box-shadow: 0 4px 16px rgba(16, 185, 129, 0.3);
+            font-weight: 600; display: flex; align-items: center; justify-content: center; gap: 8px; box-shadow: 0 4px 16px rgba(16, 185, 129, 0.3);
             z-index: 1000; animation: fadeInOut 2s ease-in-out;
           `;
-          confirmation.textContent = '✓ ' + i18n.t('recentEventsCleared');
+          confirmation.innerHTML = `${getIcon('CheckCircle')}<span>${i18n.t('recentEventsCleared')}</span>`;
           document.body.appendChild(confirmation);
           setTimeout(() => document.body.removeChild(confirmation), 2000);
           
@@ -187,6 +189,19 @@ document.addEventListener('DOMContentLoaded', async () => {
       container.appendChild(eventsContainer);
     }
 
+    const recentEventsTitle = document.getElementById('recentEventsTitle');
+    if (recentEventsTitle) recentEventsTitle.textContent = i18n.t('recentEvents');
+
+    const clearRecentEventsBtn = document.getElementById('clearRecentEventsBtn');
+    if (clearRecentEventsBtn) {
+      const tooltip = i18n.t('clearRecentEventsTooltip');
+      clearRecentEventsBtn.title = tooltip;
+      clearRecentEventsBtn.setAttribute('aria-label', tooltip);
+      const label = clearRecentEventsBtn.querySelector('span');
+      if (label) label.textContent = i18n.t('clearRecentEvents');
+      i18n.initTooltips(clearRecentEventsBtn.parentElement || document);
+    }
+
     // Limpiar eventos anteriores
     eventsContainer.innerHTML = '';
 
@@ -201,28 +216,28 @@ document.addEventListener('DOMContentLoaded', async () => {
       });
       
       let iconClass = 'blue';
-      let icon = '📋';
+      let iconName = 'ClipboardList';
       
       switch (event.type) {
         case 'session_protected':
           iconClass = 'green';
-          icon = '🛡️';
+          iconName = 'ShieldCheck';
           break;
         case 'session_cleanup':
           iconClass = 'yellow';
-          icon = '🧹';
+          iconName = 'Trash2';
           break;
         case 'xss_attempt':
           iconClass = 'red';
-          icon = '🚨';
+          iconName = 'ShieldAlert';
           break;
         case 'fingerprint_change':
           iconClass = 'blue';
-          icon = '🔍';
+          iconName = 'Fingerprint';
           break;
         case 'threat_alert':
           iconClass = 'purple';
-          icon = '🧠';
+          iconName = 'Brain';
           break;
       }
 
@@ -235,7 +250,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       }
 
       eventCard.innerHTML = `
-        <div class="notification-icon small ${iconClass}">${icon}</div>
+        <div class="notification-icon small ${iconClass}">${getIcon(iconName)}</div>
         <div class="event-text">
           <span class="event-message">${eventMessage}</span>
           <span class="event-time">${eventTime}</span>

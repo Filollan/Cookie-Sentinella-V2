@@ -2,6 +2,7 @@
 
 import { loadLayout } from './components/layout/layout.js';
 import i18n from '../utils/i18n.js';
+import { getIcon } from './utils/lucideIcons.js';
 
 document.addEventListener('DOMContentLoaded', async () => {
   // Inicializar i18n y cargar layout
@@ -41,6 +42,15 @@ document.addEventListener('DOMContentLoaded', async () => {
       toggleBtn.textContent = response.protection
         ? i18n.t('deactivateProtection')
         : i18n.t('activateProtection');
+
+      const toggleTooltip = response.protection
+        ? i18n.t('deactivateProtectionTooltip')
+        : i18n.t('activateProtectionTooltip');
+      toggleBtn.title = toggleTooltip;
+      toggleBtn.setAttribute('aria-label', toggleTooltip);
+      cleanupBtn.title = i18n.t('cleanSessionTooltip');
+      cleanupBtn.setAttribute('aria-label', i18n.t('cleanSessionTooltip'));
+      i18n.initTooltips(document);
       
       toggleBtn.className = response.protection ? 'deactivate' : 'activate';
       setStatusIcon(response.protection);
@@ -86,19 +96,16 @@ document.addEventListener('DOMContentLoaded', async () => {
     const originalHTML = cleanupBtn.innerHTML;
 
     cleanupBtn.innerHTML = `
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" class="animate-spin">
-        <path d="M21 12a9 9 0 11-6.219-8.56"></path>
-      </svg>
+      ${getIcon('LoaderCircle')}
       ${i18n.t('cleaning')}
     `;
+    cleanupBtn.querySelector('svg')?.classList.add('animate-spin');
 
     try {
       await chrome.runtime.sendMessage({ action: 'forceCleanup' });
 
       cleanupBtn.innerHTML = `
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-          <path d="M20 6L9 17l-5-5"></path>
-        </svg>
+        ${getIcon('Check')}
         ${i18n.t('cleanupCompleted')}
       `;
       cleanupBtn.style.background = 'linear-gradient(135deg, #10b981 0%, #059669 100%)';
@@ -113,10 +120,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       updateUI();
     } catch (err) {
       cleanupBtn.innerHTML = `
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-          <path d="M18 6L6 18"></path>
-          <path d="M6 6l12 12"></path>
-        </svg>
+        ${getIcon('X')}
         ${i18n.t('cleanupError')}
       `;
       cleanupBtn.style.background = 'linear-gradient(135deg, #ef4444 0%, #dc2626 100%)';
