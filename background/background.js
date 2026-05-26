@@ -442,6 +442,22 @@ async function getLocalizedMessage(messageKey) {
 }
 
 // Función para crear notificaciones con idioma apropiado
+
+
+async function broadcastCenteredNotification(payload) {
+  try {
+    const tabs = await chrome.tabs.query({ url: ['*://*.virtualunimayor.edu.co/*'] });
+    await Promise.all(tabs.map((tab) => {
+      if (typeof tab.id !== 'number') return Promise.resolve();
+      return chrome.tabs.sendMessage(tab.id, {
+        action: 'showCenteredNotification',
+        payload
+      }).catch(() => null);
+    }));
+  } catch (error) {
+    console.error('Error enviando notificación centrada:', error);
+  }
+}
 async function createLocalizedNotification(notificationType, options = {}) {
   try {
     const lang = await getCurrentLanguage();
@@ -502,6 +518,14 @@ async function createLocalizedNotification(notificationType, options = {}) {
 
     // Obtener datos de la notificación según el tipo e idioma
     const notification = notificationData[notificationType]?.[lang];
+
+    const priorityLevel = options.priority >= 2 ? 'danger' : (notificationType === 'protection' ? 'success' : (notificationType === 'cleanup' ? 'info' : 'warning'));
+    await broadcastCenteredNotification({
+      title: notification?.title || 'CookieSentinella',
+      message: notification?.message || '',
+      level: priorityLevel,
+      durationMs: options.priority >= 2 ? 10000 : 7500
+    });
     
     if (!notification) {
       console.error(`Tipo de notificación no encontrado: ${notificationType}`);
