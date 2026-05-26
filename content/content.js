@@ -9,6 +9,20 @@
     if (existing) existing.remove();
   }
 
+  function getFriendlyThreatCopy(severity) {
+    if (severity === 'alto') {
+      return {
+        title: '⚠️ Detectamos un riesgo alto en esta página',
+        message: 'Ya bloqueamos la amenaza para proteger tu cuenta. Te recomendamos limpiar tu sesión por seguridad y volver a ingresar.'
+      };
+    }
+
+    return {
+      title: '⚠️ Detectamos actividad sospechosa',
+      message: 'La extensión te está protegiendo. Como medida adicional, puedes limpiar tu sesión ahora y continuar con más seguridad.'
+    };
+  }
+
   function showCenteredThreatAlert({ title, message, severity }) {
     removeThreatOverlay();
 
@@ -38,16 +52,33 @@
       padding: 22px;
     `;
 
+    const friendlyCopy = getFriendlyThreatCopy(severity);
+    const safeTitle = friendlyCopy.title;
+    const safeMessage = friendlyCopy.message;
+    const technicalDetail = typeof message === 'string' && message.trim() ? message.trim() : '';
+
     card.innerHTML = `
-      <h2 style="margin:0 0 10px;font-size:20px;line-height:1.2;">${title || 'Alerta de seguridad'}</h2>
-      <p style="margin:0 0 18px;font-size:15px;line-height:1.5;">${message || 'Se detectó actividad sospechosa.'}</p>
-      <button id="cs-centered-threat-ack" style="background:${borderColor};color:white;border:none;border-radius:8px;padding:10px 14px;cursor:pointer;font-weight:600;">Entendido</button>
+      <h2 style="margin:0 0 10px;font-size:20px;line-height:1.2;">${safeTitle}</h2>
+      <p style="margin:0 0 18px;font-size:15px;line-height:1.5;">${safeMessage}</p>
+      ${technicalDetail ? `<p style="margin:0 0 18px;font-size:12px;line-height:1.4;color:#d1d5db;">Detalle detectado: ${technicalDetail}</p>` : ''}
+      <div style="display:flex;gap:10px;flex-wrap:wrap;">
+        <button id="cs-centered-threat-cleanup" style="background:${borderColor};color:white;border:none;border-radius:8px;padding:10px 14px;cursor:pointer;font-weight:600;">Limpiar sesión ahora</button>
+        <button id="cs-centered-threat-ack" style="background:#374151;color:white;border:none;border-radius:8px;padding:10px 14px;cursor:pointer;font-weight:600;">Entendido</button>
+      </div>
     `;
 
     overlay.appendChild(card);
     document.documentElement.appendChild(overlay);
 
     const closeButton = card.querySelector('#cs-centered-threat-ack');
+    const cleanupButton = card.querySelector('#cs-centered-threat-cleanup');
+
+    cleanupButton?.addEventListener('click', () => {
+      chrome.runtime.sendMessage({ action: 'forceCleanup' }, () => {
+        removeThreatOverlay();
+      });
+    });
+
     closeButton?.addEventListener('click', removeThreatOverlay);
   }
 
